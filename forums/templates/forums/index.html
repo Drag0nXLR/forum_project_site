@@ -1,0 +1,16 @@
+{% extends 'forums/base.html' %}
+
+{% block page_header %}
+  <div class="jumbotron">
+    <h1 class="display-3">Answer Questions</h1>
+    <p class="lead">
+      Answer questions from other users. It's free. Get answers to your questions.
+    </p>
+    {% if user.is_authenticated %}
+      <a class="btn btn-primary btn-lg" href="{% url 'posts' %}" role="button">Questions &raquo;</a>
+    {% else %}
+      <a class="btn btn-primary btn-lg" href="{% url 'users:register' %}" role="button">Register &raquo;</a>
+      <a class="btn btn-primary btn-lg" href="{% url 'users:login' %}" role="button">Log in &raquo;</a>
+    {% endif %}
+  </div>
+{% endblock page_header %}

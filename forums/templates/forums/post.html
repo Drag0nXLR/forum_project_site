@@ -1,0 +1,27 @@
+{% extends 'forums/base.html' %}
+
+{% block page_header %}
+  <h3>Question "{{ post.title }}" by {{ post.author.username }}</h3>
+  <p>{{ post.content|linebreaks }}</p>
+{% endblock page_header %}
+
+{% block content %}
+  <p>Answers:</p>
+  <a href="{% url 'new_comment' post.id %}">Add a new answer</a>
+
+  {% for comment in comments %}
+  <div class="card mb-3">
+    <h4 class="card-header">
+      {{ comment.author.username }} {{ comment.date_added|date:'M d, Y H:i'}}
+      {% if comment.author == user %}
+        <small><a href="{% url 'edit_comment' comment.id %}">Edit</a></small>
+      {% endif %}
+    </h4>
+    <div class="card-body">
+      <p class="card-text">{{ comment.content|linebreaks }}</p>
+    </div>
+  </div>
+  {% empty %}
+    <p>There are no answers for this question yet.</p>
+  {% endfor %}
+{% endblock content %}
